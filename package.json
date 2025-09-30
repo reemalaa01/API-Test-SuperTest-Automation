@@ -4,13 +4,15 @@
 
     "dev": "nodemon ./node_modules/mock-user-auth/bin/www.js",
 
-"test": "mocha tests/**/*.js --reporter mochawesome --reporter-options reportDir=reports,json=true,reportFilename=report",
-  "posttest": "node generate-and-open-report.js"
+    "test": "mocha tests/**/*.js --reporter mochawesome --reporter-options reportDir=reports,json=true,reportFilename=report",
+
+    "posttest": "node generate-and-open-report.js"
+
   },
 
   "devDependencies": {
 
-    "chai": "^6.2.0",
+    "chai": "^4.5.0",
 
     "mocha": "^11.7.2",
 
