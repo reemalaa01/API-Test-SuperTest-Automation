@@ -4,9 +4,8 @@
 
 "dev": "nodemon --ignore mochawesome-report/** ./node_modules/mock-user-auth/bin/www.js",
 "start": "node ./node_modules/mock-user-auth/bin/www.js",
-    "test": "mocha tests/**/*.js --reporter mochawesome --reporter-options reportDir=reports,json=true,reportFilename=report",
+"test": "mocha"
 
-    "posttest": "node generate-and-open-report.js"
 
   },
 
