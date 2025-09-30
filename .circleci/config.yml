@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: cimg/node:20.12  # CircleCI Node.js image
+      - image: cimg/node:22.4.0  # CircleCI Node.js image
     steps:
       - checkout
       - run:
