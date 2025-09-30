@@ -1,33 +1,40 @@
 version: 2.1
 
 jobs:
-  test:
+  api-tests:
     docker:
-      - image: cimg/node:20.12  # CircleCI Node.js image
+      - image: cimg/node:22.4.0  # Node 22 LTS image
     steps:
       - checkout
+
+      # Install dependencies from package-lock.json
       - run:
           name: Install dependencies
-          command: npm install
+          command: npm ci
+
+      # Start mock-user-auth server on port 3000 in the background
       - run:
           name: Start server in background
           command: |
-            npm start &
-            for i in `seq 1 20`; do
+            PORT=3000 node ./node_modules/mock-user-auth/bin/www.js &
+            for i in `seq 1 30`; do
               nc -z localhost 3000 && echo "✅ Server is up!" && break
               echo "⏳ Waiting for server..."
               sleep 1
             done
+
+      # Run Mocha tests with mochawesome reporter
       - run:
-          name: Run tests with Mochawesome
+          name: Run API tests
           command: npm test
+
+      # Save mochawesome reports as CircleCI artifacts
       - store_artifacts:
           path: reports
-      - store_test_results:
-          path: reports
+          destination: mochawesome-reports
 
 workflows:
   version: 2
   test:
     jobs:
-      - test
+      - api-tests
