@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   api-tests:
     docker:
-      - image: cimg/node:22.4.0   # Node.js 22, no need for browsers here
+      - image: cimg/node:22.4.0   # Node 22 LTS
     steps:
       - checkout
 
@@ -12,19 +12,25 @@ jobs:
           name: Install dependencies
           command: npm ci
 
-      # Run Mocha API tests with Supertest
+      # Start the API server in background
+      - run:
+          name: Start mock-user-auth server
+          command: npm run dev &
+      
+      # Give server a few seconds to boot
+      - run:
+          name: Wait for server
+          command: sleep 5
+
+      # Run tests
       - run:
           name: Run API tests
           command: npm test
 
-      # Save Mochawesome JSON + HTML reports as CircleCI artifacts
+      # Save mochawesome reports as artifacts
       - store_artifacts:
           path: reports
           destination: mochawesome-reports
-
-      # Save test results so CircleCI UI shows them
-      - store_test_results:
-          path: reports
 
 workflows:
   version: 2
