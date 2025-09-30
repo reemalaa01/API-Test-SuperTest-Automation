@@ -1,14 +1,11 @@
 {
 
-  "scripts": {
+"scripts": {
+  "start:ci": "node app.ci.js",
+  "test:ci": "start-server-and-test start:ci http://localhost:3000 test:mocha",
+  "test:mocha": "mocha tests/**/*.js"
+},
 
-"dev": "nodemon ./node_modules/mock-user-auth/bin/www.js",
-
-    "start": "node ./node_modules/mock-user-auth/bin/www.js",
-
-    "test": "mocha tests/**/*.js"
-
-  },
 
   "devDependencies": {
 
@@ -18,7 +15,15 @@
 
     "mock-user-auth": "^1.0.15",
 
+    "start-server-and-test": "^2.1.2",
+
     "supertest": "^7.1.4"
+
+  },
+
+  "dependencies": {
+
+    "regenerator-runtime": "^0.14.1"
 
   }
 

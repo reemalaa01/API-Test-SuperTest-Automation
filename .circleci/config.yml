@@ -1,29 +1,19 @@
 version: 2.1
-
 jobs:
-  build-and-test:
+  test:
     docker:
-      - image: cimg/node:22.4.0
-
+      - image: cimg/node:22.19
     steps:
       - checkout
-
       - run:
           name: Install dependencies
-          command: npm install
-
+          command: npm ci
       - run:
-          name: Start server in background
-          command: |
-            npm run dev &
-            sleep 10  # wait 10s to give the server time to start
-
-      - run:
-          name: Run tests
-          command: npm test
+          name: Run CI tests
+          command: npm run test:ci
 
 workflows:
   version: 2
-  build_and_test:
+  test:
     jobs:
-      - build-and-test
+      - test
