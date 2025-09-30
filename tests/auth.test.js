@@ -2,7 +2,7 @@ const request = require('supertest');
 const { expect } = require('chai');
 //const app = require("../node_modules/mock-user-auth/app"); // your app.js
 
-const API = process.env.API || "http://localhost:3000";
+const API = process.env.API || "http://127.0.0.1:3000";
 describe('Mock User Auth API', () => {
   let token;
 
