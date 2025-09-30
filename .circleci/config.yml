@@ -20,7 +20,7 @@ jobs:
       # Give server a few seconds to boot
       - run:
           name: Wait for server
-          command: sleep 5
+          command: sleep 10
 
       # Run tests
       - run:
