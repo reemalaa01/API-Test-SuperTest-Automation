@@ -12,12 +12,10 @@ jobs:
       - run:
           name: Start server in background
           command: |
-            npm start &
-            for i in `seq 1 20`; do
-              nc -z localhost 3000 && echo "✅ Server is up!" && break
-              echo "⏳ Waiting for server..."
-              sleep 1
-            done
+            npm run dev &
+            
+              sleep 30
+            
       - run:
            name: Debug server logs
            command: tail -f server.log &
