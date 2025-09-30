@@ -4,7 +4,7 @@
 
 "dev": "nodemon --ignore mochawesome-report/** ./node_modules/mock-user-auth/bin/www.js",
 "start": "node ./node_modules/mock-user-auth/bin/www.js",
-"test": "mocha"
+"test": "mocha tests/**/*.js"
 
 
   },
