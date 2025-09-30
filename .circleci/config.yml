@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Start server in background
           command: |
-            npm start &
+            npm run dev &
             
               sleep 15
             
