@@ -12,9 +12,9 @@ jobs:
       - run:
           name: Start server in background
           command: |
-            npm run dev &
+            npm start &
             
-              sleep 30
+              sleep 15
             
       - run:
            name: Debug server logs
