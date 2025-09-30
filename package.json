@@ -2,10 +2,11 @@
 
   "scripts": {
 
-"dev": "nodemon --ignore mochawesome-report/** ./node_modules/mock-user-auth/bin/www.js",
-"start": "node ./node_modules/mock-user-auth/bin/www.js",
-"test": "mocha tests/**/*.js"
+"dev": "nodemon ./node_modules/mock-user-auth/bin/www.js",
 
+    "start": "node ./node_modules/mock-user-auth/bin/www.js",
+
+    "test": "mocha tests/**/*.js"
 
   },
 
@@ -15,15 +16,7 @@
 
     "mocha": "^11.7.2",
 
-    "mochawesome": "^7.1.4",
-
-    "mochawesome-merge": "^5.0.0",
-
-    "mochawesome-report-generator": "^6.3.0",
-
     "mock-user-auth": "^1.0.15",
-
-    "open": "^10.2.0",
 
     "supertest": "^7.1.4"
 
