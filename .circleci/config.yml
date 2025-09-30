@@ -1,39 +1,33 @@
 version: 2.1
 
 jobs:
-  api-tests:
+  test:
     docker:
-      - image: cimg/node:22.4.0   # Node 22 LTS
+      - image: cimg/node:20.12  # CircleCI Node.js image
     steps:
       - checkout
-
-      # Install dependencies
       - run:
           name: Install dependencies
-          command: npm ci
-
-      # Start the API server in background
+          command: npm install
       - run:
-          name: Start mock-user-auth server
-          command: npm run dev &
-      
-      # Give server a few seconds to boot
+          name: Start server in background
+          command: |
+            npm run dev &
+            for i in `seq 1 20`; do
+              nc -z localhost 3000 && echo "✅ Server is up!" && break
+              echo "⏳ Waiting for server..."
+              sleep 1
+            done
       - run:
-          name: Wait for server
-          command: sleep 10
-
-      # Run tests
-      - run:
-          name: Run API tests
+          name: Run tests with Mochawesome
           command: npm test
-
-      # Save mochawesome reports as artifacts
       - store_artifacts:
           path: reports
-          destination: mochawesome-reports
+      - store_test_results:
+          path: reports
 
 workflows:
   version: 2
   test:
     jobs:
-      - api-tests
+      - test
