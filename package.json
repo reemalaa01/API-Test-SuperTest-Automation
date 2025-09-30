@@ -1,0 +1,32 @@
+{
+
+  "scripts": {
+
+    "dev": "nodemon ./node_modules/mock-user-auth/bin/www.js",
+
+"test": "mocha tests/**/*.js --reporter mochawesome --reporter-options reportDir=reports,json=true,reportFilename=report",
+  "posttest": "node generate-and-open-report.js"
+  },
+
+  "devDependencies": {
+
+    "chai": "^6.2.0",
+
+    "mocha": "^11.7.2",
+
+    "mochawesome": "^7.1.4",
+
+    "mochawesome-merge": "^5.0.0",
+
+    "mochawesome-report-generator": "^6.3.0",
+
+    "mock-user-auth": "^1.0.15",
+
+    "open": "^10.2.0",
+
+    "supertest": "^7.1.4"
+
+  }
+
+}
+

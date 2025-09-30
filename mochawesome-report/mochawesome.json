@@ -1,0 +1,238 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 7,
+    "passes": 6,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-09-28T11:40:22.707Z",
+    "end": "2025-09-28T11:40:22.797Z",
+    "duration": 90,
+    "testsRegistered": 7,
+    "passPercent": 85.71428571428571,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "0942dab4-ef7b-4425-9a23-96355892b50e",
+      "title": "",
+      "fullFile": "D:\\supertest automation\\tests\\auth.test.js",
+      "file": "\\tests\\auth.test.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1f67077b-6578-4746-bedb-65337edcf7bc",
+          "title": "Mock User Auth API",
+          "fullFile": "D:\\supertest automation\\tests\\auth.test.js",
+          "file": "\\tests\\auth.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before each\" hook in \"Mock User Auth API\"",
+              "fullTitle": "Mock User Auth API \"before each\" hook in \"Mock User Auth API\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Optional: reset users.json",
+              "err": {},
+              "uuid": "2452ab96-baed-4689-9d98-3acc2999ebce",
+              "parentUUID": "1f67077b-6578-4746-bedb-65337edcf7bc",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should register a user successfully",
+              "fullTitle": "Mock User Auth API should register a user successfully",
+              "timedOut": false,
+              "duration": 51,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "// const uniqueEmail = `user${Date.now()}@test.com`;\n const res = await request(API)\n   .post('/api/v1/users')\n   .send({ name: 'user', email: 'user@gmail.com', password: 'user123' });\n expect(res.status).to.equal(200);\n expect(res.body).to.have.property('message', 'User registered with success');\n expect(res.body).to.have.property('token');\n token = res.body.token;",
+              "err": {
+                "message": "AssertionError: expected { Object (message) } to have property 'token'",
+                "estack": "AssertionError: expected { Object (message) } to have property 'token'\n    at Context.<anonymous> (tests\\auth.test.js:20:30)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+                "diff": null
+              },
+              "uuid": "a8d5fccc-3abc-47b4-b9bf-2b191ac50a6b",
+              "parentUUID": "1f67077b-6578-4746-bedb-65337edcf7bc",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should login a user and return a token",
+              "fullTitle": "Mock User Auth API should login a user and return a token",
+              "timedOut": false,
+              "duration": 6,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const res = await request(API)\n  \n  .post(\"/api/v1/auth\")\n  .send({ email: \"user@gmail.com\", password: \"user123\" });\nexpect(res.status).to.equal(200);// or 201 if your API uses it\nexpect(res.body).to.have.property(\"token\");\nexpect(res.body.token).to.be.a(\"string\");\n// Optional: save token for future authenticated requests\ntoken = res.body.token;",
+              "err": {},
+              "uuid": "afce14ef-8ee3-4bfd-b726-677918369b2a",
+              "parentUUID": "1f67077b-6578-4746-bedb-65337edcf7bc",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should get user details",
+              "fullTitle": "Mock User Auth API should get user details",
+              "timedOut": false,
+              "duration": 4,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const res = await request(API)\n  .get('/api/v1/users')\n  .set('Authorization', token); // make sure you include \"Bearer \"\nexpect(res.status).to.equal(200);\nexpect(res.body).to.have.property('id');\nexpect(res.body).to.have.property('name', 'user');\nexpect(res.body).to.have.property('email', 'user@gmail.com');\nexpect(res.body).to.have.property('password', 'user123');\nexpect(res.body).to.have.property('imageUrl');",
+              "err": {},
+              "uuid": "75fa5c9e-2964-4da1-ad3d-f8259a2c0360",
+              "parentUUID": "1f67077b-6578-4746-bedb-65337edcf7bc",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should update user details",
+              "fullTitle": "Mock User Auth API should update user details",
+              "timedOut": false,
+              "duration": 5,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const updatedData = {\n  name: \"newName\",\n  email: \"new_email@gmail.com\",\n  password: \"newpassword123\"\n};\nconst res = await request(API)\n  .patch('/api/v1/users')\n  .set('Authorization', token)\n  .send(updatedData);\nexpect(res.status).to.equal(200);\n//expect(res.body).to.have.property('data');\nexpect(res.body).to.have.property('message', 'User updated with success!');\n// const user = res.body.data;\n// expect(user).to.have.property('id'); // id remains\n// expect(user).to.have.property('name', updatedData.name);\n// expect(user).to.have.property('email', updatedData.email);\n// expect(user).to.have.property('password', updatedData.password);\n// expect(user).to.have.property('imageUrl'); // unchanged",
+              "err": {},
+              "uuid": "54d4768b-073c-4087-be5c-c91e2a050393",
+              "parentUUID": "1f67077b-6578-4746-bedb-65337edcf7bc",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should login a user and return a token",
+              "fullTitle": "Mock User Auth API should login a user and return a token",
+              "timedOut": false,
+              "duration": 5,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const res = await request(API)\n  \n  .post(\"/api/v1/auth\")\n  .send({ email: \"new_email@gmail.com\", password: \"newpassword123\" });\nexpect(res.status).to.equal(200);// or 201 if your API uses it\nexpect(res.body).to.have.property(\"token\");\nexpect(res.body.token).to.be.a(\"string\");\n// Optional: save token for future authenticated requests\ntoken = res.body.token;",
+              "err": {},
+              "uuid": "25861191-67dc-4b6f-997b-bfb43c33d1b4",
+              "parentUUID": "1f67077b-6578-4746-bedb-65337edcf7bc",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should delete the user successfully",
+              "fullTitle": "Mock User Auth API should delete the user successfully",
+              "timedOut": false,
+              "duration": 4,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const res = await request(API)\n  .delete('/api/v1/users')\n  .set('Authorization', token); // token from login\nexpect(res.status).to.equal(200);\nexpect(res.body).to.have.property('message', 'User deleted with success!');",
+              "err": {},
+              "uuid": "6811d519-cdf9-4fe6-a358-0603e26f47f1",
+              "parentUUID": "1f67077b-6578-4746-bedb-65337edcf7bc",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should delete all users successfully",
+              "fullTitle": "Mock User Auth API should delete all users successfully",
+              "timedOut": false,
+              "duration": 3,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const res = await request(API)\n  .delete('/api/v1/all-users')\n  .send({ key_admin: 'keyadmin123' }); // admin key in body\nexpect(res.status).to.equal(200);\nexpect(res.body).to.have.property('message', 'Users deleted with success');",
+              "err": {},
+              "uuid": "8ec9b1d9-56a2-43e4-a177-40b2cbebd8f6",
+              "parentUUID": "1f67077b-6578-4746-bedb-65337edcf7bc",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "afce14ef-8ee3-4bfd-b726-677918369b2a",
+            "75fa5c9e-2964-4da1-ad3d-f8259a2c0360",
+            "54d4768b-073c-4087-be5c-c91e2a050393",
+            "25861191-67dc-4b6f-997b-bfb43c33d1b4",
+            "6811d519-cdf9-4fe6-a358-0603e26f47f1",
+            "8ec9b1d9-56a2-43e4-a177-40b2cbebd8f6"
+          ],
+          "failures": [
+            "a8d5fccc-3abc-47b4-b9bf-2b191ac50a6b"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 78,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 10000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 10000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.7.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.3.0"
+    }
+  }
+}
