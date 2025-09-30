@@ -3,35 +3,35 @@ version: 2.1
 jobs:
   api-tests:
     docker:
-      - image: cimg/node:22.4.0  # Node 22 LTS image
+      - image: cimg/node:22.4.0
     steps:
       - checkout
 
-      # Install dependencies from package-lock.json
       - run:
           name: Install dependencies
           command: npm ci
 
-      # Start mock-user-auth server on port 3000 in the background
       - run:
           name: Start server in background
           command: |
-            PORT=3000 node ./node_modules/mock-user-auth/bin/www.js &
+            HOST=0.0.0.0 PORT=3000 npm start > server.log 2>&1 &
             for i in `seq 1 30`; do
               nc -z localhost 3000 && echo "✅ Server is up!" && break
               echo "⏳ Waiting for server..."
               sleep 1
             done
+            tail -n 20 server.log
 
-      # Run Mocha tests with mochawesome reporter
       - run:
           name: Run API tests
           command: npm test
 
-      # Save mochawesome reports as CircleCI artifacts
       - store_artifacts:
           path: reports
           destination: mochawesome-reports
+      - store_artifacts:
+          path: server.log
+          destination: server-logs
 
 workflows:
   version: 2
