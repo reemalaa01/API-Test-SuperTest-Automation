@@ -17,3 +17,6 @@ workflows:
   test:
     jobs:
       - test
+      - store_artifacts:
+          path: reports
+          destination: mochawesome-reports

@@ -70,6 +70,8 @@ try {
   } catch (err) {
     console.warn('Known failure: API message differs from docs');
   }
+  console.log("NOTE: API returns message with '!' instead of without, as per documentation.");
+
     // const res = await request(API)
     //   .patch('/api/v1/users')
     //   .set('Authorization', token)
