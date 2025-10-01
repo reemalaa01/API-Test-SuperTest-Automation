@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  test:
+  api-tests:
     docker:
       - image: cimg/node:22.19
     steps:
@@ -15,6 +15,13 @@ jobs:
       - store_artifacts:
           path: reports
           destination: mochawesome-reports
+
+workflows:
+  version: 2
+  test-workflow:
+    jobs:
+      - api-tests
+
 
 
 # version: 2.1
